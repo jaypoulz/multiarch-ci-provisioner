@@ -12,6 +12,6 @@ route_address=$ip_address".xip.io";
 
 sudo iptables -F;
 sudo service docker restart;
-nohup oc cluster up --public-hostname=$ip_address --routing-suffix=$route_address --host-data-dir=$HOME/origin;
+nohup oc cluster up --public-hostname=$ip_address --routing-suffix=$route_address --host-data-dir=$HOME/origin --use-existing-config;
 
 exit 0
