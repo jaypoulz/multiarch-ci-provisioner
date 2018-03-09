@@ -6,9 +6,9 @@ spec:
   ports:
   - name: jnlp
     port: 50000
-  loadBalancerIP: 172.29.0.1
+  loadBalancerIP: 
   type: LoadBalancer
   selector:
-    name: jnlp-selector 
+    name: jnlp 
 
 
