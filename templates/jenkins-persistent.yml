@@ -28,6 +28,12 @@ metadata:
   uid: a1b0dd97-0071-11e8-8c94-fa163edab4c3
 objects:
 - apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: jenkins
+    name: jenkins
+- apiVersion: v1
   kind: Route
   metadata:
     annotations:
@@ -150,7 +156,7 @@ objects:
   spec:
     ports:
     - name: agent
-      nodePort: 0
+      nodePort: 0 
       port: 50000
       protocol: TCP
       targetPort: 50000
@@ -158,6 +164,19 @@ objects:
       name: ${JENKINS_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${JNLP_SERVICE_NAME}-external
+  spec:
+    ports:
+    - name: jnlp
+      port: 50000
+      nodePort: 50001
+    loadBalancerIP: 
+    type: LoadBalancer
+    selector:
+      name: ${JNLP_SERVICE_NAME}-external
 - apiVersion: v1
   kind: Service
   metadata:
@@ -208,3 +227,5 @@ parameters:
   displayName: Jenkins ImageStreamTag
   name: JENKINS_IMAGE_STREAM_TAG
   value: jenkins:latest
+labels:
+  templates: jenkins-persistent
