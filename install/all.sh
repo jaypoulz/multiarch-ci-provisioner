@@ -5,11 +5,11 @@ root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )/..
 cd $root_dir
 
 # Setup dependencies and docker
-bash $root_dir/install/setup/install-dependencies.sh
+bash $root_dir/install/dependencies.sh
 
 # Launch OpenShift cluster
-bash $root_dir/install/setup/start-cluster.sh
+bash $root_dir/setup/start-cluster.sh
 
 # Initialize projects within cluster
-bash $root_dir/install/setup/openshift/create-project.sh
-bash $root_dir/install/setup/openshift/create-provisioner.sh
+bash $root_dir/setup/openshift/create-project.sh
+bash $root_dir/setup/openshift/create-provisioner.sh

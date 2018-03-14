@@ -1,6 +1,6 @@
 #!/bin/bash
 oc login -u developer
-oc create -f templates/provisioner-template.yml
+oc create -f templates/provisioner.yml
 
 oc create secret generic beaker --from-file images/provisioner/secrets/beaker/client.conf
 oc create secret generic krb5 --from-file images/provisioner/secrets/krb5/krb5.conf
