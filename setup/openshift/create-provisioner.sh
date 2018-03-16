@@ -1,9 +1,12 @@
 #!/bin/bash
-oc login -u developer
-oc create -f templates/provisioner.yml
+root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )/..
+cd $root_dir
 
-oc create secret generic beaker --from-file images/provisioner/secrets/beaker/client.conf
-oc create secret generic krb5 --from-file images/provisioner/secrets/krb5/krb5.conf
+oc login -u developer
+oc create -f ../templates/provisioner.yml
+
+oc create secret generic beaker --from-file ../images/provisioner/secrets/beaker/client.conf
+oc create secret generic krb5 --from-file ../images/provisioner/secrets/krb5/krb5.conf
 
 oc new-app provisioner-builder
 oc login -u system:admin
