@@ -7,8 +7,13 @@ echo "Enter the desired OpenShift version (e.g. v3.6.1) [default LATEST]:";
 read openshift_version;
 
 # Download Specified OpenShift client
-[ -z "$openshift_version" ] && openshift_version = "OPENSHIFT_LATEST" || openshift_version = "OPENSHIFT_" + $openshift_version;
-curl -L --create-dirs --output downloads/openshift-tools.gz ${$openshift_version} &&
+if [ -z "$openshift_version" ] 
+then
+  openshift_version=$OPENSHIFT__LATEST 
+else
+  openshift_version="OPENSHIFT__${openshift_version//./_}"
+fi
+eval curl -L --create-dirs --output downloads/openshift-tools.gz \${$openshift_version} &&
 mkdir downloads/openshift-tools &&
 tar xvzf downloads/openshift-tools.gz -C downloads/openshift-tools --strip-components=1 &&
 sudo cp downloads/openshift-tools/oc /bin;
