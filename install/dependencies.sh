@@ -1,10 +1,16 @@
 #!/bin/bash
 sudo yum install -y git docker firewalld;
 
-. openshift/config.sh
+# Get desired openshift client
+. openshift/config.sh;
+echo "Enter the desired OpenShift version (e.g. v3.6.1) [default LATEST]:";
+read openshift_version;
 
-curl -L --create-dirs --output downloads/openshift-tools.gz ${${OPENSHIFT_LATEST}};
-mkdir downloads/openshift-tools; tar xvzf downloads/openshift-tools.gz -C downloads/openshift-tools --strip-components=1;
+# Download Specified OpenShift client
+[ -z "$openshift_version" ] && openshift_version = "OPENSHIFT_LATEST" || openshift_version = "OPENSHIFT_" + $openshift_version;
+curl -L --create-dirs --output downloads/openshift-tools.gz ${$openshift_version} &&
+mkdir downloads/openshift-tools &&
+tar xvzf downloads/openshift-tools.gz -C downloads/openshift-tools --strip-components=1 &&
 sudo cp downloads/openshift-tools/oc /bin;
 
 # Start Services
