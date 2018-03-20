@@ -1,6 +1,9 @@
 #!/bin/bash
 sudo yum install -y git docker firewalld;
-curl -L --create-dirs --output downloads/openshift-tools.gz https://github.com/openshift/origin/releases/download/v3.7.1/openshift-origin-client-tools-v3.7.1-ab0f056-linux-64bit.tar.gz;
+
+. openshift/config.sh
+
+curl -L --create-dirs --output downloads/openshift-tools.gz ${${OPENSHIFT_LATEST}};
 mkdir downloads/openshift-tools; tar xvzf downloads/openshift-tools.gz -C downloads/openshift-tools --strip-components=1;
 sudo cp downloads/openshift-tools/oc /bin;
 
