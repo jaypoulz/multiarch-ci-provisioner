@@ -6,7 +6,7 @@ cd $root_dir
 sudo yum install -y git docker firewalld;
 
 # Get desired openshift client
-. openshift/config.sh;
+. install/openshift/config.sh;
 echo "Enter the desired OpenShift version (e.g. v3.6.1) [default LATEST]:";
 read openshift_version;
 
