@@ -24,7 +24,7 @@ RUN pip install -U pip setuptools && \
     git clone https://github.com/herlo/linchpin.git && cd linchpin && \
     git checkout -b herlo-teardown_by_rundb develop && \
     git pull https://github.com/herlo/linchpin.git teardown_by_rundb && \
-    pip install ./linchpin && \
+    pip install ../linchpin && \
     pip install cinch
 
 # Copy over configuration files
