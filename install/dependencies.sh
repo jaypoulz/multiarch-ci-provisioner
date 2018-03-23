@@ -1,11 +1,14 @@
 #!/bin/bash
+root_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )/..
+cd $root_dir
+
+# Install yum dependecies
 sudo yum install -y git docker firewalld;
 
 # Get desired openshift client
 . openshift/config.sh;
 echo "Enter the desired OpenShift version (e.g. v3.6.1) [default LATEST]:";
 read openshift_version;
-echo "$openshift_version"
 
 # Download Specified OpenShift client
 if [ -z "$openshift_version" ] 
