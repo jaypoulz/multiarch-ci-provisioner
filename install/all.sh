@@ -11,5 +11,4 @@ bash $root_dir/install/dependencies.sh
 bash $root_dir/setup/start-cluster.sh
 
 # Initialize projects within cluster
-bash $root_dir/setup/openshift/create-project.sh
-bash $root_dir/setup/openshift/create-provisioner.sh
+bash $root_dir/install/openshift.sh
