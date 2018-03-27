@@ -69,7 +69,7 @@ objects:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: jenkins:2
+          name: jenkins-2-centos7:latest
           namespace: openshift
       type: Source
     triggers:
