@@ -71,6 +71,7 @@ objects:
           kind: ImageStreamTag
           name: 'jenkins:latest'
           namespace: openshift
+        forcePull: true
       type: Source
     triggers:
       - type: ConfigChange
