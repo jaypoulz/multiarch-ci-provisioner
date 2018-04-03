@@ -116,6 +116,10 @@ objects:
             value: ${JENKINS_SERVICE_NAME}
           - name: JNLP_SERVICE_NAME
             value: ${JNLP_SERVICE_NAME}
+          - name: JENKINS_MASTER_URL
+            value: "https://${JENKINS_SERVICE_NAME}-${NAMESPACE}.${PUBLIC_IP}.xip.io"
+          - name: JSWARM_EXTRA_ARGS
+            value: "-tunnel ${PUBLIC_IP}:30000"
           image: ' '
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -267,5 +271,9 @@ parameters:
   displayName: Jenkins Repository Context Director
   name: CONTEXT_DIR
   value: s2i/jenkins/master
+- description: IP over which the console and services will be exposed.
+  displayName: Public/External IP
+  name: PUBLIC_IP
+  required: true
 labels:
   templates: jenkins-persistent

@@ -61,9 +61,9 @@
           </default>
           <int>2</int>
           <string>JENKINS_MASTER_URL</string>
-          <string>https://jenkins-redhat-multiarch-qe.10.8.245.175.xip.io</string>
+          <string>${JENKINS_MASTER_URL}</string>
           <string>JSWARM_EXTRA_ARGS</string>
-          <string>-tunnel 10.8.245.175:30000</string>
+          <string>${JSWARM_EXTRA_ARGS}</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
