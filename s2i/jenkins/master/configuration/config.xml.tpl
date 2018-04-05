@@ -7,6 +7,7 @@
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
     <permission>hudson.model.Computer.Configure:admin</permission>
+    <permission>hudson.model.Computer.Connect:admin</permission>
     <permission>hudson.model.Computer.Delete:admin</permission>
     <permission>hudson.model.Hudson.Administer:admin</permission>
     <permission>hudson.model.Hudson.Read:admin</permission>
