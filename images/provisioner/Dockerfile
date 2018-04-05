@@ -20,7 +20,7 @@ yum clean all
 # Install all pip dependencies
 RUN pip install -U pip setuptools && \
     pip install -U beaker-common beaker-client && \
-    pip install -U linchpin cinch
+    pip install -U ansible==2.4.4.0 linchpin cinch
     
 # Copy over configuration files
 COPY beaker/client.conf /etc/beaker/client.conf
