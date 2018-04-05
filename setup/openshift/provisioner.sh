@@ -14,5 +14,3 @@ oc login -u developer
 
 # List the jenkins token so you can easily copy it into the Jenkins instance
 oc serviceaccounts get-token jenkins
-
-exit 0

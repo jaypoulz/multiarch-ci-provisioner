@@ -1,25 +1,28 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
+# Defaults
+default_openshift_version=v3.9.0
+
 # Install yum dependecies
 sudo yum install -y git docker firewalld;
 
 # Get desired openshift client
 . setup/openshift/config.sh;
-echo "Enter the desired OpenShift version (e.g. v3.9.0) [default LATEST]:";
+echo "Enter the desired OpenShift version [default $default_openshift_version]:";
 read openshift_version;
 
 # Download Specified OpenShift client
 if [ -z "$openshift_version" ]
 then
-  openshift_version="$OPENSHIFT__LATEST"
-else
-  openshift_version="OPENSHIFT__${openshift_version//./_}"
+  openshift_version=$default_openshift_version
 fi
-eval curl -L --create-dirs --output downloads/openshift-${openshift_version}.gz \${$openshift_version} &&
-mkdir downloads/openshift-${openshift_version} &&
-tar xvzf downloads/openshift-${openshift_version}.gz -C downloads/openshift-${openshift_version} --strip-components=1 &&
-sudo cp downloads/openshift-${openshift_version}/oc /bin;
+openshift_version="OPENSHIFT__${openshift_version//./_}"
+
+eval curl -L --create-dirs --output downloads/${openshift_version}.gz \${$openshift_version} &&
+mkdir downloads/${openshift_version} &&
+tar xvzf downloads/${openshift_version}.gz -C downloads/${openshift_version} --strip-components=1 &&
+sudo cp downloads/${openshift_version}/oc /bin;
 
 # Start Services
 sudo systemctl enable docker;
