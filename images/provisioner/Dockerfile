@@ -20,13 +20,8 @@ yum clean all
 # Install all pip dependencies
 RUN pip install -U pip setuptools && \
     pip install -U beaker-common beaker-client && \
-    #pip install -U linchpin cinch
-    git clone https://github.com/herlo/linchpin.git && cd linchpin && \
-    git checkout -b herlo-teardown_by_rundb develop && \
-    git pull https://github.com/herlo/linchpin.git teardown_by_rundb && \
-    pip install ../linchpin && \
-    pip install cinch
-
+    pip install -U linchpin cinch
+    
 # Copy over configuration files
 COPY beaker/client.conf /etc/beaker/client.conf
 COPY krb5/krb5.conf /etc/krb5.conf
