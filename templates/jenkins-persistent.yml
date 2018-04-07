@@ -208,7 +208,7 @@ objects:
     loadBalancerIP:
     type: LoadBalancer
     selector:
-      name: ${JNLP_SERVICE_NAME}-external
+      name: ${JENKINS_SERVICE_NAME}
 - apiVersion: v1
   kind: Service
   metadata:
