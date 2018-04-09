@@ -20,9 +20,9 @@ fi
 openshift_version="OPENSHIFT__${openshift_version//./_}"
 
 eval curl -L --create-dirs --output downloads/${openshift_version}.gz \${$openshift_version} &&
-mkdir downloads/${openshift_version} &&
+mkdir -p downloads/${openshift_version} &&
 tar xvzf downloads/${openshift_version}.gz -C downloads/${openshift_version} --strip-components=1 &&
-sudo cp downloads/${openshift_version}/oc /bin;
+sudo cp downloads/${openshift_version}/oc /usr/local/bin
 
 # Start Services
 sudo systemctl enable docker;

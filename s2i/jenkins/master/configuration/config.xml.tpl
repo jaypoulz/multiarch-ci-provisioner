@@ -7,7 +7,6 @@
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
     <permission>hudson.model.Computer.Configure:admin</permission>
-    <permission>hudson.model.Computer.Connect:developer-admin</permission>
     <permission>hudson.model.Computer.Delete:admin</permission>
     <permission>hudson.model.Hudson.Administer:admin</permission>
     <permission>hudson.model.Hudson.Read:admin</permission>
@@ -23,6 +22,23 @@
     <permission>hudson.model.View.Create:admin</permission>
     <permission>hudson.model.View.Delete:admin</permission>
     <permission>hudson.scm.SCM.Tag:admin</permission>
+    <permission>hudson.model.Computer.Configure:developer-admin</permission>
+    <permission>hudson.model.Computer.Connect:developer-admin</permission>
+    <permission>hudson.model.Computer.Delete:developer-admin</permission>
+    <permission>hudson.model.Hudson.Administer:developer-admin</permission>
+    <permission>hudson.model.Hudson.Read:developer-admin</permission>
+    <permission>hudson.model.Item.Build:developer-admin</permission>
+    <permission>hudson.model.Item.Configure:developer-admin</permission>
+    <permission>hudson.model.Item.Create:developer-admin</permission>
+    <permission>hudson.model.Item.Delete:developer-admin</permission>
+    <permission>hudson.model.Item.Read:developer-admin</permission>
+    <permission>hudson.model.Item.Workspace:developer-admin</permission>
+    <permission>hudson.model.Run.Delete:developer-admin</permission>
+    <permission>hudson.model.Run.Update:developer-admin</permission>
+    <permission>hudson.model.View.Configure:developer-admin</permission>
+    <permission>hudson.model.View.Create:developer-admin</permission>
+    <permission>hudson.model.View.Delete:developer-admin</permission>
+    <permission>hudson.scm.SCM.Tag:developer-admin</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>true</disableSignup>
