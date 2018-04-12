@@ -59,7 +59,7 @@ else
     sed -E "s/\{/\{\n  \"mtu\"\: 1400\,/" /etc/docker/daemon.json | sudo tee 1> /dev/null /etc/docker/daemon.json
   else
     echo "Create a new /etc/docker/daemon.json to set MTU to 1400"
-    echo "{ \"mtu\": 1400 }" | sudo tee 1> /dev/null /etc/docker/daemon.json
+    echo "{ \"bip\": \"172.17.0.0/16\", \"mtu\": 1400 }" | sudo tee 1> /dev/null /etc/docker/daemon.json
   fi
 fi
 
