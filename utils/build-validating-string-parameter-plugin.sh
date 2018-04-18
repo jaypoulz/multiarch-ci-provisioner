@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE[0]}")"
 work_dir=$(pwd)
-root_dir=$(realpath "$(pwd)/../../..")
+root_dir=$(realpath "$(pwd)/..")
 
 mkdir tmp
 cd tmp
