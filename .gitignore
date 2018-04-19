@@ -4,4 +4,4 @@
 *.inventory
 *.output
 downloads/
-credentials/*
+credentials/
