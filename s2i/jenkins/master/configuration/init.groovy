@@ -3,6 +3,7 @@ def credentialName = 'jenkins-slave-credentials'
 def credentialDesc = 'Credentials used by multiarch-ci-libraries to connect provisioned hosts to Jenkins'
 
 import hudson.model.*
+import jenkins.model.*
 import jenkins.security.ApiTokenProperty
 import hudson.util.Secret
 import com.cloudbees.plugins.credentials.*
