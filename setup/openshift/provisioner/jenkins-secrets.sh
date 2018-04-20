@@ -9,6 +9,12 @@ echo "Would like like to install beaker secrets? [y/N]"
 read install_secrets
 if [ "$install_secrets"="y" ]
 then
+  dir = $(pwd)
+
+  echo "Moving into credentials directory to install secrets"
+  cd "$(dirname "${BASH_SOURCE[0]}")/../../../credentials"
+  echo "You are now at: $(pwd)"
+
   # Install SSH Private Key
   echo "Please enter the path of the SSH Private Key:"
   read -e ssh_priv_key
@@ -32,6 +38,9 @@ then
   oc create secret generic keytab --from-file=filename="${kerberos_keytab}"
   # Add label to mark that it should be synced.
   oc label secret keytab credential.sync.jenkins.openshift.io=true
+
+  echo "Restoring previous working directory"
+  cd dir
 else
   exit 0
 fi

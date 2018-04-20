@@ -1,7 +1,3 @@
-def username = 'developer-admin'
-def credentialName = 'jenkins-slave-credentials'
-def credentialDesc = 'Credentials used by multiarch-ci-libraries to connect provisioned hosts to Jenkins'
-
 import hudson.model.*
 import jenkins.model.*
 import jenkins.security.ApiTokenProperty
@@ -9,6 +5,12 @@ import hudson.util.Secret
 import com.cloudbees.plugins.credentials.*
 import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
+
+jenkins = Jenkins.instance
+
+def username = 'developer-admin'
+def credentialName = 'jenkins-slave-credentials'
+def credentialDesc = 'Credentials used by multiarch-ci-libraries to connect provisioned hosts to Jenkins'
 
 // Get the actual token
 u = User.get(username)
