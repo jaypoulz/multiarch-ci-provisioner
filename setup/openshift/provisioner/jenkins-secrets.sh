@@ -9,7 +9,7 @@ echo "Would like like to install beaker secrets? [y/N]"
 read install_secrets
 if [ "$install_secrets"="y" ]
 then
-  dir = $(pwd)
+  dir=$(pwd)
 
   echo "Moving into credentials directory to install secrets"
   cd "$(dirname "${BASH_SOURCE[0]}")/../../../credentials"
@@ -40,7 +40,7 @@ then
   oc label secret keytab credential.sync.jenkins.openshift.io=true
 
   echo "Restoring previous working directory"
-  cd dir
+  cd $dir
 else
   exit 0
 fi
