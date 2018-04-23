@@ -51,7 +51,7 @@ then
     read ip_address
     if [ -z "$ip_address" ]
     then
-      ip_address="$default_ip_address"
+        ip_address="$default_ip_address"
     fi
 
     sudo iptables -F
@@ -59,27 +59,27 @@ then
 
     route_address="$ip_address"".xip.io"
     nohup oc cluster up --public-hostname=$ip_address --routing-suffix=$route_address \
-          --host-data-dir=$HOME/origin --use-existing-config
+          --host-data-dir=/var/lib/origin/local --use-existing-config
 
 # OpenShift content only
 elif [ "$install_type" = "2" ]
 then
-     echo "You've opted into installing into a preexisting OpenShift cluster."
-     echo "Is this a node in the cluster where the install can be preformed? (y/N)"
-     read confirm
-     if [ "$confirm" != "y" ]
-     then
-         echo "Please run this installation script on a host in the cluster where the install can be performed."
-         exit 0
-     fi
+    echo "You've opted into installing into a preexisting OpenShift cluster."
+    echo "Is this a node in the cluster where the install can be preformed? (y/N)"
+    read confirm
+    if [ "$confirm" != "y" ]
+    then
+        echo "Please run this installation script on a host in the cluster where the install can be performed."
+        exit 0
+    fi
 
-     # Get the external IP
-     echo "Please enter the external IP address that will be used to route traffic into this cluster [default 127.0.0.1]:"
-     read ip_address
-     if [ -z "$ip_address" ]
-     then
-       ip_address="$default_ip_address"
-     fi
+    # Get the external IP
+    echo "Please enter the external IP address that will be used to route traffic into this cluster [default 127.0.0.1]:"
+    read ip_address
+    if [ -z "$ip_address" ]
+    then
+        ip_address="$default_ip_address"
+    fi
 
 # Invalid option
 else
@@ -87,14 +87,18 @@ else
     exit 0
 fi
 
+echo "Would you like to install the provisioner? (y/N)"
+read install_provisioner
+if [ $install_provisioner = "y" ]
+then
+    # Initialize projects within cluster
+    echo "Installing the OpenShift project to contain the provisioner."
+    bash setup/openshift/project.sh
 
-# Initialize projects within cluster
-echo "Installing the OpenShift project to contain the provisioner."
-bash setup/openshift/project.sh
+    echo "Installing the Jenkins instance to use with the provisioner."
+    echo "$ip_address"
+    bash setup/openshift/jenkins.sh "$ip_address"
 
-echo "Installing the Jenkins instance to use with the provisioner."
-echo "$ip_address"
-bash setup/openshift/jenkins.sh "$ip_address"
-
-echo "Installing the provisioner image."
-bash setup/openshift/provisioner.sh
+    echo "Installing the provisioner image."
+    bash setup/openshift/provisioner.sh
+fi
