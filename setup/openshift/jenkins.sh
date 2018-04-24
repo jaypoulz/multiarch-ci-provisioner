@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Installs Jenkins persistent template under developer account.
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 oc login -u developer

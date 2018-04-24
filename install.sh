@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Use this file to setup the OpenShift provisioner in a dedicated VM.
+# Sets up the OpenShift provisioner locally, on a dedicated VM, or on an existing OpenShift cluster.
+
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 # Ensure current user is in the docker group
@@ -12,12 +13,15 @@ fi
 
 # Defaults
 default_install_type=1
-default_ip_address=127.0.0.1
+
+# Source functions
+. setup/dependencies.sh
+. setup/networking.sh
 
 # Preliminary Questions
 echo "Two installation types for the provisioner are available:"
-echo "  1. Creating a new single node OpenShift cluster"
-echo "  2. Using a pre-existing OpenShift cluster"
+echo "  1. Create a new single node OpenShift cluster"
+echo "  2. Use a pre-existing OpenShift cluster"
 
 echo "Please select your desired installation type: (default 1)"
 read install_type
@@ -39,27 +43,19 @@ then
     fi
 
     # Setup dependencies and docker
-    echo "Would you like to install dependencies for running OpenShift via docker? (y/N)"
+    echo "Installing dependencies is necessary before the provisioner can run."
+    echo "Would you like to install dependencies (y/N)"
     read install_dependencies
     if [ "$install_dependencies" = "y" ]
     then
-        bash setup/dependencies.sh
+        setup_dependencies
     fi
 
-    # Get the external IP
-    echo "Please enter the external IP address that will be used to route traffic into this cluster [default 127.0.0.1]:"
-    read ip_address
-    if [ -z "$ip_address" ]
-    then
-        ip_address="$default_ip_address"
-    fi
-
-    sudo iptables -F
-    sudo service docker restart
-
+    setup_networking
     route_address="$ip_address"".xip.io"
     nohup oc cluster up --public-hostname=$ip_address --routing-suffix=$route_address \
-          --host-data-dir=/var/lib/origin/local --use-existing-config
+          --host-data-dir=/var/lib/origin/local --use-existing-config 
+    cat nohup.out
 
 # OpenShift content only
 elif [ "$install_type" = "2" ]
@@ -73,13 +69,7 @@ then
         exit 0
     fi
 
-    # Get the external IP
-    echo "Please enter the external IP address that will be used to route traffic into this cluster [default 127.0.0.1]:"
-    read ip_address
-    if [ -z "$ip_address" ]
-    then
-        ip_address="$default_ip_address"
-    fi
+    setup_networking
 
 # Invalid option
 else
@@ -87,7 +77,7 @@ else
     exit 0
 fi
 
-echo "Would you like to install the provisioner? (y/N)"
+echo "Would you like to install the provisioner on your OpenShift cluster? (y/N)"
 read install_provisioner
 if [ $install_provisioner = "y" ]
 then

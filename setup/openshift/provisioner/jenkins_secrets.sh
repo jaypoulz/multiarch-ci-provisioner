@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Attempts to install OpenShift secrets that will be mounted in Jenkins. Looks inside the credentials directory.
+
 # Prompt the user if they want to install secrets
 echo "The multi-arch provisioner currently only supports provisioning from beaker."
 echo "Provisioning from beaker will require the following:"

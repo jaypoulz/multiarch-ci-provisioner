@@ -1,10 +1,12 @@
 #!/bin/bash
+#
+# Attempts to install provisioner and its secrets. Spits out the Jenkins service account credentials.
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 oc login -u developer
 
 # Install Jenkins secrets
-bash openshift/provisioner/jenkins-secrets.sh
+bash openshift/provisioner/jenkins_secrets.sh
 
 # Create the template and its configuration secrets
 oc create -f ../templates/provisioner.yml

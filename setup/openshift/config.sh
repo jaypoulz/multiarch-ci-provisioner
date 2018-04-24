@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# openshift/config.sh
+# Lists a bunch of URLs for different versions of OpenShift.
 OPENSHIFT__v3_9_0="https://github.com/openshift/origin/releases/download/v3.9.0/openshift-origin-client-tools-v3.9.0-191fece-linux-64bit.tar.gz"
 OPENSHIFT__v3_7_2="https://github.com/openshift/origin/releases/download/v3.7.2/openshift-origin-client-tools-v3.7.2-282e43f-linux-64bit.tar.gz"
 OPENSHIFT__v3_7_1="https://github.com/openshift/origin/releases/download/v3.7.1/openshift-origin-client-tools-v3.7.1-ab0f056-linux-64bit.tar.gz"
