@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Attempts to install OpenShift secrets that will be mounted in Jenkins. Functions from credentials directory.
+dir=$(pwd)
 cd "$(dirname "${BASH_SOURCE[0]}")/../../.."
 mkdir -p credentials
 
@@ -9,10 +10,11 @@ echo "Would you like to load a keytab from a file or create a new one?"
 echo "  0. Do nothing if keytab is already installed"
 echo "  1. Load existing keytab"
 echo "  2. Create a new keytab"
-read -p "Install option: " keytab_option
+read -p "Install option (default 0): " keytab_option
 
 if [ "$keytab_option" = "1" ]
 then
+    echo "What kerberos principal should be used with this keytab?"
     read -p "Kerberos Principal: " krb_user
     echo "You are current in $(pwd)"
     read -e -p "Enter the path to the keytab: " keytab
@@ -30,7 +32,7 @@ then
         sudo yum install krb5-libs
     fi
 
-    # TODO check if kerberos configuration is already installed/setup
+    echo "What kerberos principal should be used with this keytab?"
     read -p "Kerberos Principal: " krb_user
     read -sp "Kerberos Password: " pass
     echo
@@ -41,20 +43,24 @@ then
     kinit -k -t credentials/$krb_user.keytab $krb_user@REDHAT.COM
     echo
 else
-   # Prompt for kerberos user
-   read -p "Kerberos Principal: " krb_user
+    # Prompt for kerberos user
+    echo "Skipped: Keytab installion"
+    echo "What kerberos principal should be used with this keytab?"
+    read -p "Kerberos Principal: " krb_user
 fi
 
-# SOME LOGIC HERE TO GET AN SSH KEYPAIR
+# Install ssh key pair
 echo "Would you like to load an existing key pair or create a new one?"
+echo "  0. Do nothing (key pair already installed)"
 echo "  1. Load existing key pair"
 echo "  2. Create a new key pair"
-read -p "Install option: " key_pair_option
+read -p "Install option (default 0): " key_pair_option
 
 if [ "$key_pair_option" = "1" ]
 then
-    read -p "Enter the path to the private key: " priv_key
-    read -p "Enter the path to the public key: " pub_key
+    echo "You are current in $(pwd)"
+    read -e -p "Enter the path to the private key: " priv_key
+    read -e -p "Enter the path to the public key: " pub_key
     cp "$priv_key" credentials/id_rsa
     cp "$pub_key" credentials/id_rsa.pub
     echo "Installed key pair"
@@ -75,24 +81,22 @@ then
     read public_key_uploaded
     if [ "$public_key_uploaded" = "y" ]
     then
-      echo "Key install completed."
+        echo "Key install completed."
     else
-      echo "Warning: key not uploaded to beaker, so provisioner requests will fail"
-      exit 1
+        echo "Warning: key not uploaded to beaker, so provisioner requests will fail"
+        exit 1
     fi
 else
-    echo "Invalid option $key_pair_option"
-    exit 1
+    echo "Skipped: Key pair installion"
 fi
 echo "The multi-arch provisioner currently only supports provisioning from beaker."
 echo "Provisioning from beaker will require the following:"
 echo "  - SSH Private Key"
 echo "  - SSH Public Key"
 echo "  - Kerberos Keytab"
-dir=$(pwd)
 
 echo "Moving into credentials directory to install secrets"
-cd "$(dirname "${BASH_SOURCE[0]}")/../../../credentials"
+cd credentials
 echo "Now at: $(pwd)"
 
 # Install SSH Private Key
@@ -112,7 +116,7 @@ oc label secret sshpubkey credential.sync.jenkins.openshift.io=true
 # Install the Kerberos Principal
 echo "Install Kerberos Principal"
 # Create the secret
-oc create secret generic krbprincipal --from-literal="krbprincpal=$krb_user"
+oc create secret generic krbprincipal --from-literal="username=$krb_user" --from-literal="password=none"
 # Add label to mark that it should synced.
 oc label secret krbprincipal credential.sync.jenkins.openshift.io=true
 
