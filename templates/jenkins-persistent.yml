@@ -266,7 +266,7 @@ parameters:
 - description: The branch or tag for the repository that defines the Jenkins instance.
   displayName: Jenkins Repository Branch/Tag
   name: REPO_REF
-  value: dev-v0.4
+  value: v1.0
 - description: Path within repository that defines the Jenkins instance; empty for root directory.
   displayName: Jenkins Repository Context Director
   name: CONTEXT_DIR
