@@ -1,14 +1,18 @@
-import hudson.model.*
-import jenkins.model.*
-import jenkins.security.*
-import jenkins.security.csrf.DefaultCrumbIssuer
-import hudson.util.Secret
 import com.cloudbees.plugins.credentials.*
 import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
+import hudson.model.*
+import hudson.security.csrf.DefaultCrumbIssuer
+import hudson.util.Secret
+import java.util.logging.Logger
+import jenkins.model.*
+import jenkins.security.*
 
 jenkins = Jenkins.instance
 def logger = Logger.getLogger("")
+def username = 'developer-admin'
+def credentialName = 'jenkins-slave-credentials'
+def credentialDesc = 'Credentials used by multiarch-ci-libraries to connect provisioned hosts to Jenkins'
 
 logger.info("Enabling CSRF Protection")
 jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))
@@ -18,10 +22,6 @@ Set<String> agentProtocolsList = ['JNLP4-connect']
 jenkins.setAgentProtocols(agentProtocolsList)
 
 jenkins.save()
-
-def username = 'developer-admin'
-def credentialName = 'jenkins-slave-credentials'
-def credentialDesc = 'Credentials used by multiarch-ci-libraries to connect provisioned hosts to Jenkins'
 
 // Get the actual token
 u = User.get(username)
