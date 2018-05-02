@@ -18,9 +18,9 @@ yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi
 yum clean all
 
 # Install all pip dependencies
-RUN pip install -U pip setuptools && \
-    pip install -U beaker-common beaker-client && \
-    pip install -U ansible==2.4.4.0 linchpin cinch
+RUN pip install -U pip && \
+    pip install -U setuptools && \
+    pip install -U beaker-common beaker-client linchpin cinch
     
 # Copy over configuration files
 COPY beaker/client.conf /etc/beaker/client.conf
