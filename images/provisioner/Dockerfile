@@ -3,7 +3,7 @@ FROM openshift/jenkins-slave-base-centos7
 # Set home to root directory for caching purposes
 # Disable host key checking explicitly - see https://github.com/ansible/ansible/issues/30720
 ENV HOME=/root \
-    ANSIBLE_HOST_KEY_CHECKING=False
+    ANSIBLE_HOST_KEY_CHECKING=False \
     WORKON_HOME=/home/jenkins/envs
 
 # Set WORKDIR to HOME
