@@ -17,6 +17,13 @@ yum install -y beaker-common beakerlib beaker-client beaker-redhat python-beaker
 yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi-devel gcc && \
 yum clean all
 
+# Install virutalenvwrapper
+RUN pip install virtualenvwrapper && \
+export WORKON_HOME=~/Envs && \
+mkdir -p $WORKON_HOME && \
+source /usr/local/bin/virtualenvwrapper.sh && \
+mkvirtualenv provisioner
+   
 # Install all pip dependencies
 RUN pip install -U pip && \
     pip install -U setuptools && \
