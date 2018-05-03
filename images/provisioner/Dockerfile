@@ -19,13 +19,13 @@ yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi
 yum clean all
 
 # Install virutalenvwrapper
-RUN pip install virtualenv && \
-mkdir -p $WORKON_HOME/provisioner && \
-virtualenv --no-site-packages $WORKON_HOME/provisioner && \
-source $WORKON_HOME/provisioner/bin/activate
+RUN pip install virtualenvwrapper && \
+mkdir -p $WORKON_HOME && \
+mkvirtualenv --no-site-packages provisioner 
    
 # Install all pip dependencies
-RUN pip install -U pip && \
+RUN workon provisioner && \
+    pip install -U pip && \
     pip install -U setuptools && \
     pip install -U beaker-common beaker-client linchpin cinch
     
