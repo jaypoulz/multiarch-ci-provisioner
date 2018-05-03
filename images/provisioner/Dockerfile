@@ -26,7 +26,7 @@ RUN pip install virtualenvwrapper && \
     workon provisioner && \
     pip install -U pip && \
     pip install -U setuptools && \
-    pip install -U beaker-common beaker-client linchpin cinch
+    pip install -U linchpin[beaker] cinch
     
 # Copy over configuration files
 COPY beaker/client.conf /etc/beaker/client.conf
