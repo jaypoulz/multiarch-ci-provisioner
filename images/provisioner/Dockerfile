@@ -22,7 +22,8 @@ yum clean all
 RUN pip install virtualenvwrapper && \
 mkdir -p $WORKON_HOME && \
 source $(which virtualenvwrapper.sh) && \
-mkvirtualenv provisioner --no-site-packages; \
+mkdir -p $WORKON_HOME/provisioner && \
+virtualenv --no-site-packages $WORKON_HOME/provisioner && \
 workon provisioner
    
 # Install all pip dependencies
