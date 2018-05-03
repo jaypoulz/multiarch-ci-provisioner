@@ -26,7 +26,9 @@ RUN pip install virtualenvwrapper && \
     workon provisioner && \
     pip install -U pip && \
     pip install -U setuptools && \
-    pip install -U beaker-common beaker-client linchpin cinch
+    pip install -U beaker-common beaker-client linchpin cinch && \
+    echo "source $(which virtualenvwrapper.sh); workon provisioner" | \
+        sudo tee -a /etc/profile 
     
 # Copy over configuration files
 COPY beaker/client.conf /etc/beaker/client.conf
@@ -47,7 +49,3 @@ RUN cp /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt /etc/beaker/RH-IT-Root
 # Set home dir and env HOME var for SSH
 WORKDIR /home/jenkins
 ENV HOME=/home/jenkins
-
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-
