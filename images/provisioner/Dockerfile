@@ -11,21 +11,19 @@ WORKDIR /root
 
 # Install all dependencies from yum
 RUN yum-config-manager --add-repo=http://download.lab.eng.bos.redhat.com/beakerrepos/client/CentOS7/ && \
-yum upgrade -y --skip-broken && \
-yum install -y epel-release && \
-yum install -y python python-devel python-pip && \
-yum install -y beaker-common beakerlib beaker-client beaker-redhat python-beaker --nogpgcheck && \
-yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi-devel gcc && \
-yum clean all
+    yum upgrade -y --skip-broken && \
+    yum install -y epel-release && \
+    yum install -y python python-devel python-pip && \
+    yum install -y beaker-common beakerlib beaker-client beaker-redhat python-beaker --nogpgcheck && \
+    yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi-devel gcc && \
+    yum clean all
 
-# Install virutalenvwrapper
+# Install virutalenvwrapper && pip dependencies
 RUN pip install virtualenvwrapper && \
-mkdir -p $WORKON_HOME && \
-source $(which virtualenvwrapper.sh) && \
-mkvirtualenv --no-site-packages provisioner 
-   
-# Install all pip dependencies
-RUN workon provisioner && \
+    mkdir -p $WORKON_HOME && \
+    source $(which virtualenvwrapper.sh) && \
+    mkvirtualenv --no-site-packages provisioner && \ 
+    workon provisioner && \
     pip install -U pip && \
     pip install -U setuptools && \
     pip install -U beaker-common beaker-client linchpin cinch
