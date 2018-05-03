@@ -47,3 +47,7 @@ RUN cp /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt /etc/beaker/RH-IT-Root
 # Set home dir and env HOME var for SSH
 WORKDIR /home/jenkins
 ENV HOME=/home/jenkins
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
