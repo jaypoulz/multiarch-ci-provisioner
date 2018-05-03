@@ -22,7 +22,8 @@ RUN pip install virtualenvwrapper && \
 export WORKON_HOME=~/Envs && \
 mkdir -p $WORKON_HOME && \
 source $(which virtualenvwrapper.sh) && \
-mkvirtualenv provisioner
+which virtualenvwrapper.sh && \
+mkvirtualenv --no-site-packages provisioner
    
 # Install all pip dependencies
 RUN pip install -U pip && \
