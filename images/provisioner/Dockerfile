@@ -19,12 +19,10 @@ yum install -y krb5-workstation libvirt-devel libyaml-devel openssl-devel libffi
 yum clean all
 
 # Install virutalenvwrapper
-RUN pip install virtualenvwrapper && \
-mkdir -p $WORKON_HOME && \
-source $(which virtualenvwrapper.sh) && \
+RUN pip install virtualenv && \
 mkdir -p $WORKON_HOME/provisioner && \
 virtualenv --no-site-packages $WORKON_HOME/provisioner && \
-workon provisioner
+source $WORKON_HOME/provisioner/bin/activate
    
 # Install all pip dependencies
 RUN pip install -U pip && \
