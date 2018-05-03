@@ -4,6 +4,7 @@ FROM openshift/jenkins-slave-base-centos7
 # Disable host key checking explicitly - see https://github.com/ansible/ansible/issues/30720
 ENV HOME=/root \
     ANSIBLE_HOST_KEY_CHECKING=False
+    WORKON_HOME=/home/jenkins/envs
 
 # Set WORKDIR to HOME
 WORKDIR /root
@@ -19,11 +20,9 @@ yum clean all
 
 # Install virutalenvwrapper
 RUN pip install virtualenvwrapper && \
-export WORKON_HOME=~/Envs && \
 mkdir -p $WORKON_HOME && \
 source $(which virtualenvwrapper.sh) && \
-which virtualenvwrapper.sh && \
-mkvirtualenv --no-site-packages provisioner
+mkvirtualenv provisioner --no-site-packages
    
 # Install all pip dependencies
 RUN pip install -U pip && \
