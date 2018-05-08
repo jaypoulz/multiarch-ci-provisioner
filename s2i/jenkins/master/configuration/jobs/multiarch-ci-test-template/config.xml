@@ -36,7 +36,7 @@
       <jenkins.branch.BranchSource>
         <source class="jenkins.plugins.git.GitSCMSource" plugin="git@3.8.0">
           <id>27179f43-1b33-44ab-809b-14c892ab1295</id>
-          <remote>https://github.com/jaypoulz/multiarch-ci-test-template.git</remote>
+          <remote>https://github.com/redhat-multiarch-qe/multiarch-ci-test-template.git</remote>
           <credentialsId></credentialsId>
           <traits>
             <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
